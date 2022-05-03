@@ -1,0 +1,270 @@
+---
+title: "Useful Stuff"
+author: Junjie Lei
+date: May, 2022
+output: 
+  revealjs::revealjs_presentation:
+    fig_width: 20
+    fig_height: 7
+    fig_caption: true
+    transition: fade
+    mathjax: default
+    theme: night
+    center: true
+    highlight: pygments
+    self_contained: false
+    smart: true
+    reveal_plugins: ["zoom", "notes", "chalkboard", "menu"]
+    reveal_options:
+      slideNumber: true
+      toggleMenuButton: false
+      menu:
+        numebrs: true
+        side: left
+---
+
+```{r setup, echo=FALSE, cache=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(rmdformats) 
+## Global options
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+
+
+# Reveal.js -- RMD Slides Show
+
+## Simple installation process
+```
+install.packages("revealjs")
+```
+<br>
+<br>
+
+And ... that's it
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+GitHub Link Resource/Mannual Page -- [here](https://github.com/rstudio/revealjs)
+
+## YAML Config file
+
+```
+---
+title: "Useful Stuff"
+author: Junjie Lei
+date: May, 2022
+output: 
+  revealjs::revealjs_presentation:
+    fig_width: 20
+    fig_height: 7
+    fig_caption: true
+    transition: fade
+    mathjax: default
+    theme: night
+    center: true
+    highlight: pygments
+    self_contained: false
+    smart: true
+    reveal_plugins: ["zoom", "notes", "chalkboard", "menu"]
+    reveal_options:
+      slideNumber: true
+      toggleMenuButton: false
+      menu:
+        numebrs: true
+        side: left
+---
+
+{r setup, echo=FALSE, cache=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(rmdformats) 
+## Global options
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=NA,
+               message=FALSE,
+               warning=FALSE)
+opts_knit$set(width=75)
+
+
+```
+
+
+# RMD Webpage
+
+
+## Simple header & Setup
+
+```
+---
+title: "Chinese Social Credit System"
+subtitle: "The unreliable blacklisting mechanism"
+date: "2021-05-14"
+author: "Junjie Lei"
+output:
+  rmdformats::downcute:
+    self_contained: true
+    css: style.css
+---
+
+
+## Global options
+options(max.print="75")
+opts_chunk$set(echo=FALSE,
+	             cache=TRUE,
+               prompt=FALSE,
+               tidy=TRUE,
+               comment=TRUE,
+               message=FALSE,
+               gallery=TRUE, 
+               warning=FALSE)
+opts_knit$set(width=75)
+```
+
+# Interactive Visualizations
+
+
+## 
+```{r fig.height=7, fig.width=10}
+library(ggplot2)
+library(plotly)
+library(gapminder)
+
+p <- gapminder %>%
+  filter(year==1977) %>%
+  ggplot( aes(gdpPercap, lifeExp, size = pop, color=continent)) +
+  geom_point() +
+  theme_bw()
+
+ggplotly(p)
+```
+
+## 
+```{r fig.height=7, fig.width=10}
+library(plotly)
+library(gapminder)
+
+df <- gapminder 
+fig <- df %>%
+  plot_ly(
+    x = ~gdpPercap, 
+    y = ~lifeExp, 
+    size = ~pop, 
+    color = ~continent, 
+    frame = ~year, 
+    text = ~country, 
+    hoverinfo = "text",
+    type = 'scatter',
+    mode = 'markers'
+  )
+fig <- fig %>% layout(
+    xaxis = list(
+      type = "log"
+    )
+  )
+
+fig
+
+```
+
+## 
+
+```{r fig.height=7, fig.width=10}
+library(plotly)
+
+df <- gapminder 
+fig <- df %>%
+  plot_ly(
+    x = ~gdpPercap, 
+    y = ~lifeExp, 
+    size = ~pop, 
+    color = ~continent, 
+    frame = ~year, 
+    text = ~country, 
+    hoverinfo = "text",
+    type = 'scatter',
+    mode = 'markers'
+  )
+fig <- fig %>% layout(
+    xaxis = list(
+      type = "log"
+    )
+  )
+fig <- fig %>% animation_opts(
+    1000, easing = "elastic", redraw = FALSE
+  )
+fig <- fig %>% animation_button(
+    x = 1, xanchor = "right", y = 0, yanchor = "bottom"
+  )
+fig <- fig %>% animation_slider(
+    currentvalue = list(prefix = "YEAR ", font = list(color="red"))
+  )
+
+fig
+
+```
+
+
+# Import from other src
+
+##  
+
+<iframe width="1440" height="821" src="https://www.youtube.com/embed/-BdtFjQ5JNI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+## 
+
+<iframe src="https://public.tableau.com/views/Map_fraction/Dashboard1?:language=en&:display_count=y&publish=yes&:origin=viz_share_link
+?:showVizHome=no&:embed=true" width="3000" height="680"></iframe>
+
+
+## 
+
+
+
+
+<iframe src='https://flo.uri.sh/visualisation/6099534/embed' title='Interactive or visual content' frameborder='0' scrolling='no' style='width:130%;height:670px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe><div style='width:100%!;margin-top:4px!important;text-align:right!important;'><a class='flourish-credit' href='https://public.flourish.studio/visualisation/6099534/?utm_source=embed&utm_campaign=visualisation/6099534' target='_top' style='text-decoration:none!important'><img alt='Made with Flourish' src='https://public.flourish.studio/resources/made_with_flourish.svg' style='width:105px!important;height:16px!important;border:none!important;margin:0!important;'> </a></div>
+
+
+
+# Terminal Stuff
+
+## Alias
+
+JN = Jupyter Notebook
+
+
+## NeoFetch 
+![Neofetch](https://linuxhint.com/wp-content/uploads/2021/05/image2-12.png)
+
+```
+$ brew install neofetch
+```
+
+## Z 
+
+Jump Around -- Z
+
+[Resource Here](https://github.com/rupa/z)
+
+## Top & HTOP
+
+
+## TMUX & SSH
+
+## VIM 
